@@ -267,6 +267,16 @@ public protocol TrimmerViewDelegate: class {
         let newConstraint = max(min(0, currentRightConstraint + translation.x), maxConstraint)
         rightConstraint?.constant = newConstraint
     }
+    
+    func setLeftConstraint(with position: CGPoint) {
+        let translation = CGPoint(x: position.x - currentLeftConstraint, y: 0)
+        updateLeftConstraint(with: translation)
+    }
+    
+    func setRightConstraint(with position: CGPoint) {
+        let translation = CGPoint(x: position.x - self.durationSize, y: 0)
+        updateRightConstraint(with: translation)
+    }
 
     // MARK: - Asset loading
 
@@ -298,14 +308,28 @@ public protocol TrimmerViewDelegate: class {
 
     /// The selected start time for the current asset.
     public var startTime: CMTime? {
-        let startPosition = leftHandleView.frame.origin.x + assetPreview.contentOffset.x
-        return getTime(from: startPosition)
+        get {
+            let startPosition = leftHandleView.frame.origin.x + assetPreview.contentOffset.x
+            return getTime(from: startPosition)
+        }
+        
+        set {
+            let leftPosition = CGPoint(x: getPosition(from: newValue ?? 0) ?? 0, y: 0)
+            setLeftConstraint(with: leftPosition)
+        }
     }
 
     /// The selected end time for the current asset.
     public var endTime: CMTime? {
-        let endPosition = rightHandleView.frame.origin.x + assetPreview.contentOffset.x - handleWidth
-        return getTime(from: endPosition)
+        get {
+            let endPosition = rightHandleView.frame.origin.x + assetPreview.contentOffset.x - handleWidth
+            return getTime(from: endPosition)
+        }
+        
+        set {
+            let rightPosition = CGPoint(x: getPosition(from: newValue ?? 0) ?? 0, y: 0)
+            setRightConstraint(with: rightPosition)
+        }
     }
 
     private func updateSelectedTime(stoppedMoving: Bool) {
