@@ -314,7 +314,7 @@ public protocol TrimmerViewDelegate: class {
         }
         
         set {
-            let leftPosition = CGPoint(x: getPosition(from: newValue ?? 0) ?? 0, y: 0)
+            let leftPosition = CGPoint(x: getPosition(from: newValue ?? CMTime.zero) ?? 0, y: 0)
             setLeftConstraint(with: leftPosition)
         }
     }
@@ -327,7 +327,7 @@ public protocol TrimmerViewDelegate: class {
         }
         
         set {
-            let rightPosition = CGPoint(x: getPosition(from: newValue ?? 0) ?? 0, y: 0)
+            let rightPosition = CGPoint(x: getPosition(from: newValue ?? CMTime.zero) ?? 0, y: 0)
             setRightConstraint(with: rightPosition)
         }
     }
