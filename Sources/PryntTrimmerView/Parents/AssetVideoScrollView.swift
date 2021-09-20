@@ -50,6 +50,14 @@ class AssetVideoScrollView: UIScrollView {
         super.layoutSubviews()
         contentSize = contentView.bounds.size
     }
+    
+    public func updateLayout(asset: AVAsset) {
+        self.removeFormerThumbnails()
+        self.regenerateThumbnails(for: asset)
+        self.layoutSubviews()
+        self.layoutIfNeeded()
+        self.setNeedsDisplay()
+    }
 
     internal func regenerateThumbnails(for asset: AVAsset) {
         guard let thumbnailSize = getThumbnailFrameSize(from: asset), thumbnailSize.width != 0 else {

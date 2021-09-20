@@ -75,6 +75,10 @@ public class ThumbSelectorView: AVAssetTimeSelector {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ThumbSelectorView.handlePanGesture(_:)))
         thumbView.addGestureRecognizer(panGestureRecognizer)
     }
+    
+    public func updateLayout() {
+        self.assetPreview.updateLayout(asset: self.asset!)
+    }
 
     // MARK: - Gesture handling
 
