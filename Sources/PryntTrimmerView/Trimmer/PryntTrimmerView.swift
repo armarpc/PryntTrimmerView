@@ -159,6 +159,10 @@ public protocol TrimmerViewDelegate: class {
         rightHandleKnob.centerYAnchor.constraint(equalTo: rightHandleView.centerYAnchor).isActive = true
         rightHandleKnob.centerXAnchor.constraint(equalTo: rightHandleView.centerXAnchor).isActive = true
     }
+    
+    public func updateLayout(asset: AVAsset) {
+        self.updateLayout(asset: asset)
+    }
 
     private func setupMaskView() {
 
